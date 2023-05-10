@@ -25,21 +25,16 @@ jobs:
       - name: Run tests
         run: yarn test:ci
 
-      - name: Extract coverage percentage
-        id: coverage
-        run: |
-          percentage=100
-          echo "COVERAGE_PERCENTAGE=$percentage" >> $GITHUB_ENV
+      - name: Generate badge
+        run: node .github/action/generate_badge.js
 
-      - name: Generate coverage badge
-        run: |
-          percentage=$COVERAGE_PERCENTAGE
-          badge="[![Coverage](https://img.shields.io/badge/Coverage-$percentage%25-brightgreen)]"
-          echo "$badge" > coverage_badge.md
-          echo "Coverage: $percentage%"
-
-      - name: Upload coverage badge artifact
-        uses: actions/upload-artifact@v2
+      - name: Setup GCP_KEY_ACCOUNT
+        id: write_file
+        uses: timheuer/base64-to-file@v1.2
         with:
-          name: coverage-badge
-          path: coverage_badge.md
+          fileName: "teste-ci-key.json"
+          fileDir: "/"
+          encodedString: ${{ secrets.GCP_KEY_ACCOUNT }}
+
+      - name: Upload badge
+        run: node .github/action/upload_badge.js
