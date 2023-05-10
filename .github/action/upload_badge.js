@@ -8,7 +8,13 @@ const storage = new Storage({
 const bucketName = "badges-ci-mobile";
 const filePath = "badge.svg";
 
+async function deleteFile() {
+  await storage.bucket(bucketName).file(filePath).delete();
+  console.log(`gs://${bucketName}/${filePath} deleted`);
+}
+
 async function uploadFile() {
+  await deleteFile();
   const file = await storage.bucket(bucketName).upload("badge.svg", {
     destination: "badge.svg",
     predefinedAcl: "publicRead",
