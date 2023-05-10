@@ -1,1 +1,2 @@
-![Coverage](https://storage.cloud.google.com/badges-ci-mobile/badge.svg)
+![Coverage](https://storage.googleapis.com/badges-ci-mobile/badge.svg)
+
