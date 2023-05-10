@@ -9,10 +9,11 @@ const bucketName = "badges-ci-mobile";
 const filePath = "badge.svg";
 
 async function uploadFile() {
-  await storage.bucket(bucketName).upload("badge.svg", {
+  const file = await storage.bucket(bucketName).upload("badge.svg", {
     destination: "badge.svg",
     predefinedAcl: "publicRead",
   });
+  console.log({ file });
   console.log(`${filePath} uploaded to ${bucketName}`);
 }
 
