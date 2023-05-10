@@ -23,5 +23,11 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run tests
-        continue-on-error: true
-        run: yarn jest --ci --coverage --maxWorkers=80%
+        run: yarn test:ci
+
+      - name: Create Coverage Badges
+        uses: jaywcjlove/coverage-badges-cli@main
+        with:
+          style: flat
+          source: coverage/coverage-summary.json
+          output: coverage/badges.svg
