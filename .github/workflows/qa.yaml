@@ -38,10 +38,8 @@ jobs:
           echo "$badge" > coverage_badge.md
           echo "Coverage: $percentage%"
 
-      - name: Commit coverage badge
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add coverage_badge.md
-          git commit -m "Add coverage badge" -a
-          git push
+      - name: Upload coverage badge artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-badge
+          path: coverage_badge.md
