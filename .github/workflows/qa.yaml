@@ -33,7 +33,6 @@ jobs:
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: "teste-ci-key.json"
-          fileDir: "/"
           encodedString: ${{ secrets.GCP_KEY_ACCOUNT }}
 
       - name: Upload badge
