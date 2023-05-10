@@ -44,3 +44,4 @@ jobs:
           git config --local user.name "GitHub Action"
           git add coverage_badge.md
           git commit -m "Add coverage badge" -a
+          git push
