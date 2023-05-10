@@ -35,5 +35,8 @@ jobs:
           fileName: "teste-ci-key.json"
           encodedString: ${{ secrets.GCP_KEY_ACCOUNT }}
 
+      - name: Setup GCP_KEY_ACCOUNT
+        run: ls -a
+
       - name: Upload badge
         run: node .github/action/upload_badge.js
