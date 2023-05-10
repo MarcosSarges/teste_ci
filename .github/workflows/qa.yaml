@@ -27,7 +27,9 @@ jobs:
 
       - name: Extract coverage percentage
         id: coverage
-        run: echo "::set-output name=percentage::$(cat coverage/lcov-report/index.html | grep -oP '(?<=<strong>)[^<]+')"
+        run: |
+          percentage=$(cat coverage/lcov-report/index.html | grep -oP '(?<=<strong>)[^<]+')
+          echo "COVERAGE_PERCENTAGE=$percentage" >> $GITHUB_ENV
   deploy:
     needs: test-coverage
     runs-on: ubuntu-20.04
