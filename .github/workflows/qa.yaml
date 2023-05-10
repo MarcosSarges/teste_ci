@@ -25,9 +25,20 @@ jobs:
       - name: Run tests
         run: yarn test:ci
 
-      - name: Create Coverage Badges
-        uses: jaywcjlove/coverage-badges-cli@main
-        with:
-          style: flat
-          source: coverage/coverage-summary.json
-          output: coverage/badges.svg
+      - name: Extract coverage percentage
+        id: coverage
+        run: echo "::set-output name=percentage::$(cat coverage/lcov-report/index.html | grep -oP '(?<=<strong>)[^<]+')"
+  deploy:
+    needs: test-coverage
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Post coverage badge comment
+        run: |
+          percentage=${{ needs.test.outputs.coveragePercentage }}
+          badge="[![Coverage](https://img.shields.io/badge/Coverage-$percentage%25-brightgreen)]"
+          echo "$badge" > coverage_badge.md
+          echo "Coverage: $percentage%"
